@@ -1,0 +1,144 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: ""
+
+Parameters:
+
+
+  ApplicationName:
+    Type: String
+    Default: "workshop"
+
+Resources:
+
+  SourceBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+        - ServerSideEncryptionByDefault:
+            SSEAlgorithm: AES256
+      VersioningConfiguration:
+        Status: Enabled
+
+  ArtifactBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+        - ServerSideEncryptionByDefault:
+            SSEAlgorithm: AES256
+      VersioningConfiguration:
+        Status: Enabled
+
+  CloudformationLambdaTrustRole:
+    Type: AWS::IAM::Role
+    Properties:
+      ManagedPolicyArns:
+        - "arn:aws:iam::aws:policy/AWSLambdaExecute"
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action: sts:AssumeRole
+            Principal:
+              Service: cloudformation.amazonaws.com
+      Policies:
+        - PolicyName: 'cnf-Trust'
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - apigateway:*
+                  - codedeploy:*
+                  - lambda:*
+                  - cloudformation:CreateChangeSet
+                  - iam:GetRole
+                  - iam:CreateRole
+                  - iam:DeleteRole
+                  - iam:PutRolePolicy
+                  - iam:AttachRolePolicy
+                  - iam:DeleteRolePolicy
+                  - iam:DetachRolePolicy
+                  - iam:PassRole
+                  - s3:GetObjectVersion
+                  - s3:GetBucketVersioning
+                Resource: "*"
+
+
+
+  CodeBuild:
+    Type: AWS::CodeBuild::Project
+    Properties:
+      Name: !Join ["-", [!Ref ApplicationName , "build"]]
+      Source:
+        Type: 'CODEPIPELINE'
+        BuildSpec: "buildspec.yml"
+        InsecureSsl: False
+      Artifacts:
+        Name: !Ref ArtifactBucket
+        Type: 'CODEPIPELINE'
+        NamespaceType: 'NONE'
+        Packaging: 'NONE'
+      Cache:
+        Type: 'NO_CACHE'
+      Environment:
+        Type: 'LINUX_CONTAINER'
+        Image: "aws/codebuild/amazonlinux2-x86_64-standard:1.0"
+        ComputeType: 'BUILD_GENERAL1_SMALL'
+        EnvironmentVariables:
+          - Name: BUCKET
+            Value: !Ref ArtifactBucket
+      TimeoutInMinutes: 60
+      ServiceRole: !Ref CodeBuildRole
+
+
+  CodeBuildRole:
+    Type: AWS::IAM::Role
+    Properties:
+      ManagedPolicyArns:
+        - "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action: sts:AssumeRole
+            Principal:
+              Service: codebuild.amazonaws.com
+      Policies:
+        - PolicyName: 'CodeBuild-Trust'
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:GetObjectVersion
+                  - s3:PutObject
+                  - s3:GetBucketAcl
+                  - s3:GetBucketLocation
+                Resource:
+                  - !Sub "arn:aws:s3:::codepipeline-${AWS::Region}-*"
+                  - !Sub "arn:aws:s3:::${ArtifactBucket}"
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource:
+                  - !Sub 'arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/codebuild/${ApplicationName}-build'
+                  - !Sub 'arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/codebuild/${ApplicationName}-build:*'
+
+
+
+
+Outputs:
+
+    SourceBucketUpload:
+      Description: "User uploads lambda source code here"
+      Value: !Ref SourceBucket
+
+    ArtifactBucketName:
+      Description: "Artifact bucket code pipeline uses"
+      Value: !Ref ArtifactBucket
+

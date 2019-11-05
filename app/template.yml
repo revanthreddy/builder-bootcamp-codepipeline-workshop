@@ -1,0 +1,26 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Outputs the time
+Parameters:
+  AppResource:
+    Type: String
+    Default: "TimeResource"
+Resources:
+  TimeFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.handler
+      Runtime: nodejs10.x
+      CodeUri: ./
+      Events:
+        MyTimeApi:
+          Type: Api
+          Properties:
+            Path: "/TimeResource"
+            Method: GET
+
+
+Outputs:
+  WorkShopApi:
+    Description: "API Gateway endpoint URL for Prod stage for Hello World function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/${AppResource}/"
