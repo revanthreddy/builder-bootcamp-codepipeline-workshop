@@ -89,14 +89,15 @@ Review all the changes and click "Create Pipeline"
 
 
 
-## Upload code to the SourceBucket (copied from setup stack output)
+## Start pipeline
 
-Now that the pipeline is ready to be used we will upload our SAM template to the SourceBucket
+Now that the pipeline is ready to be used we will make changes to the code in the app/ directory and commit code. This will start the pipeline
 
 
 ## Challenges
 
 * Add an approval action in the deploy stage and change the 'runorder' (think [cli](https://docs.aws.amazon.com/cli/latest/reference/codepipeline/update-pipeline.html))
+
 
 ## Cleanup
 
@@ -113,6 +114,7 @@ aws cloudformation delete-stack --stack-name workshop-setup
 
 * Delete the pipeline from the Codepipeline console
 
+* Delete the CodeCommit repo
 ## Resources
 
 [AWS CodePipeline CLI](https://docs.aws.amazon.com/cli/latest/reference/codepipeline/index.html)
