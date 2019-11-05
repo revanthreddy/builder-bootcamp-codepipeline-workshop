@@ -6,20 +6,27 @@ The application uses several AWS resources, including Lambda functions and an AP
 
 ## Prerequisites
 
-* Make sure your git credentials for codecommit (on your Isengard) are set (HTTPS/SSH)
+* Make sure your git credentials for codecommit (on your Isengard) are set (HTTPS/SSH) and ready to go
 * AWS CLI (with default profile has Admin access to the AWS account)
 * IDE (Like Pycharm, VS Code)
 
-## Setup CodeCommit
+## Setup CodeCommit with sample code
 
-* Create a <REPO-NAME> in your CodeCommit console
+* Create a <REPO-NAME> in your CodeCommit console and note down the <CodeCommit Git Clone URL>
 * In the current project remove the .git directory (as it points to code.amazon.com repo)
 
 ```bash
 $ rm -rf .git/
 ```
+* Initialize the repo with git and push it to your CodeCommit <REPO-NAME>
 
-
+```bash
+$ git init
+$ git remote add origin <CodeCommit Git Clone URL>
+$ git add .
+$ git commit -a -m "initial commit"
+$ git push origin master
+```
 ## Run the required setup stack
 
 The setup stack creates necessary IAM roles used by Cloudformation, CodeBuild Project and roles, S3 buckets used by Codepipeline during pipeline transitions
