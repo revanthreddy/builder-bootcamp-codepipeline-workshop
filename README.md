@@ -60,10 +60,10 @@ Now that all the resources are in place (created by the setup stack), lets use t
 * Service role – New service role
 * Artifact store – Custom location and fill in the 'Bucket' field with **ArtifactBucket** (created in setup stack)
 
-### Source provider – S3
+### Source provider – AWS CodeCommit
 ```
-Bucket  – SourceBucket
-S3 object key – app.zip
+Repository name  – <REPO-NAME>
+Branch name – master
 Change detection options – Amazon CloudWatch Events
 ```
 
