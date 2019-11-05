@@ -16,7 +16,7 @@ The application uses several AWS resources, including Lambda functions and an AP
 * In the current project remove the .git directory (as it points to code.amazon.com repo)
 
 ```bash
-$ rm -rf .git/
+$ git remote add codecommit <CodeCommit Git Clone URL>
 ```
 * Initialize the repo with git and push it to your CodeCommit <REPO-NAME>
 
