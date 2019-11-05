@@ -10,6 +10,16 @@ The application uses several AWS resources, including Lambda functions and an AP
 * AWS CLI (with default profile has Admin access to the AWS account)
 * IDE (Like Pycharm, VS Code)
 
+## Setup CodeCommit
+
+* Create a <REPO-NAME> in your CodeCommit console
+* In the current project remove the .git directory (as it points to code.amazon.com repo)
+
+```bash
+$ rm -rf .git/
+```
+
+
 ## Run the required setup stack
 
 The setup stack creates necessary IAM roles used by Cloudformation, CodeBuild Project and roles, S3 buckets used by Codepipeline during pipeline transitions
