@@ -75,10 +75,10 @@ Project Name - workshop-build (created as part of the stack)
 ```
 Deploy Provider - AWS Cloudformation
 Action mode - Create or update a stack
-Stack name - app-stack
+Stack name - nashville-app-stack
 Template section 
     - Artifact Name - BuildArtifact
-    - File name - package.yml
+    - File name - app/package.yml
 Role name - <workshop-setup-CloudformationLambdaTrustRole-XXXXXXXXX
 Capabilities – CAPABILITY_IAM , CAPABILITY_AUTO_EXPAND
 ```
@@ -92,21 +92,6 @@ Review all the changes and click "Create Pipeline"
 ## Upload code to the SourceBucket (copied from setup stack output)
 
 Now that the pipeline is ready to be used we will upload our SAM template to the SourceBucket
-```bash
-sh upload-code-to-s3.sh <SourceBucket>
-```
-
-Once the object (app.zip) is uploaded, go the Codepipeline console and follow the 
-progress. The last stage is the deploy stage where the cloudformation stack is created/updated.
-
-
-Now Go to CloudFormation console to look at the stack creation process. As the stack creation is complete
-click on the Outputs section and retrieve the URL of the deployed application.
-
-Make some changes to your code in app/index.js file and re-run the below command and and follow the progress in codepipeline 
-```bash
-sh upload-code-to-s3.sh <SourceBucket>
-```
 
 
 ## Challenges
@@ -117,12 +102,13 @@ sh upload-code-to-s3.sh <SourceBucket>
 
 To delete the sample application and the bucket that you created, use the AWS CLI.
 
-* Delete the **"workshop-stack"** first 
-* Empty the **SourceBucket** and **ArtifactBucket** manually
+* Delete the **"nashville-app-stack"** first from the cloudformation console
 
-* Then run the below
+* Empty the **ArtifactBucket** manually
+
+* Then run the below to remove the setup stack
 ```bash
-sh delete-setup.sh
+aws cloudformation delete-stack --stack-name workshop-setup 
 ```
 
 * Delete the pipeline from the Codepipeline console
