@@ -10,15 +10,7 @@ Parameters:
 
 Resources:
 
-  SourceBucket:
-    Type: AWS::S3::Bucket
-    Properties:
-      BucketEncryption:
-        ServerSideEncryptionConfiguration:
-        - ServerSideEncryptionByDefault:
-            SSEAlgorithm: AES256
-      VersioningConfiguration:
-        Status: Enabled
+
 
   ArtifactBucket:
     Type: AWS::S3::Bucket
@@ -134,10 +126,7 @@ Resources:
 
 Outputs:
 
-    SourceBucketUpload:
-      Description: "User uploads lambda source code here"
-      Value: !Ref SourceBucket
-
+    
     ArtifactBucketName:
       Description: "Artifact bucket code pipeline uses"
       Value: !Ref ArtifactBucket

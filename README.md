@@ -13,18 +13,13 @@ The application uses several AWS resources, including Lambda functions and an AP
 ## Setup CodeCommit with sample code
 
 * Create a <REPO-NAME> in your CodeCommit console and note down the <CodeCommit Git Clone URL>
-* In the current project remove the .git directory (as it points to code.amazon.com repo)
+* In the current project root add the <CodeCommit Git Clone URL> as one of the remote destinations (Run the below commands)
 
 ```bash
 $ git remote add codecommit <CodeCommit Git Clone URL>
-```
-* Initialize the repo with git and push it to your CodeCommit <REPO-NAME>
-
-```bash
-$ git init
-$ git remote add origin <CodeCommit Git Clone URL>
 $ git add .
 $ git commit -a -m "initial commit"
+$ git checkout -b master
 $ git push origin master
 ```
 ## Run the required setup stack
@@ -40,14 +35,14 @@ $ aws cloudformation create-stack --stack-name workshop-setup --template-body fi
 | Logical ID's        | Resource Type           |
 | ------------- |:-------------:|
 | ArtifactBucket      | AWS::S3::Bucket | 
-| SourceBucket      | AWS::S3::Bucket | 
 | CloudformationLambdaTrustRole      | AWS::IAM::Role      |
 | CodeBuild | AWS::CodeBuild::Project      |
 | CodeBuildRole | AWS::IAM::Role      |
 
 
 From your cloudformation console, look at the outputs section of workshop-setup and note down the 
-**ArtifactBucket**
+**ArtifactBucket** and **CodeBuildName**
+
 
 ## Start the Codepipeline setup in the AWS console
 
@@ -57,8 +52,7 @@ Now that all the resources are in place (created by the setup stack), lets use t
 ### Configure the pipeline settings and choose Next.
 
 * Pipeline name – workshop-pipeline
-* Service role – New service role
-* Artifact store – Custom location and fill in the 'Bucket' field with **ArtifactBucket** (created in setup stack)
+* Service role – New service 
 
 ### Source provider – AWS CodeCommit
 ```
@@ -91,12 +85,17 @@ Review all the changes and click "Create Pipeline"
 
 ## Start pipeline
 
-Now that the pipeline is ready to be used we will make changes to the code in the app/ directory and commit code. This will start the pipeline
+Now that the pipeline is ready and hooked up, it will start automatically and deploy. The final step of the pipeline is a cloudformation deploy.
 
+* Open the cloudformation console and look at the outputs section of the "nashville-app-stack". The URL points to the API Gateway endpoint which is implemented by a lambda
 
 ## Challenges
 
-* Add an approval action in the deploy stage and change the 'runorder' (think [cli](https://docs.aws.amazon.com/cli/latest/reference/codepipeline/update-pipeline.html))
+* Add an approval action in the deploy stage and re-release the pipeline from the top (or commit new code in the app/directory)
+
+* Change the 'runorder' of the approval stage and the deploy stage (think [cli](https://docs.aws.amazon.com/cli/latest/reference/codepipeline/update-pipeline.html))
+
+* Edit the deploy stage by modifying "Create or update a stack" to creating two more action stages "Create or Replace a Changeset" and "Execute a change set"
 
 
 ## Cleanup
