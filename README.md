@@ -20,7 +20,7 @@ $ git remote add codecommit <CodeCommit Git Clone URL>
 $ git add .
 $ git commit -a -m "initial commit"
 $ git checkout -b master
-$ git push origin master
+$ git push codecommit master
 ```
 ## Run the required setup stack
 
