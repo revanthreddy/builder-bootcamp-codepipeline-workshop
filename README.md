@@ -40,8 +40,7 @@ $ aws cloudformation create-stack --stack-name workshop-setup --template-body fi
 | CodeBuildRole | AWS::IAM::Role      |
 
 
-From your cloudformation console, look at the outputs section of workshop-setup and note down the 
-**ArtifactBucket** and **CodeBuildName**
+From your cloudformation console, look at the outputs section of workshop-setup and note down the `ArtifactBucket` and `CodeBuildName`
 
 
 ## Start the Codepipeline setup in the AWS console
@@ -98,9 +97,9 @@ Now that the pipeline is ready and hooked up, it will start automatically and de
 
 To delete the sample application and the bucket that you created, use the AWS CLI.
 
-* Delete the **"nashville-app-stack"** first from the cloudformation console
+* Delete the `nashville-app-stack` first from the cloudformation console
 
-* Empty the **ArtifactBucket** manually
+* Empty the `ArtifactBucket` manually
 
 * Then run the below to remove the setup stack
 ```bash
