@@ -12,7 +12,7 @@ The application uses several AWS resources, including Lambda functions and an AP
 
 ## Setup CodeCommit with sample code
 
-* Create a <REPO-NAME> in your CodeCommit console and note down the <CodeCommit Git Clone URL>
+* Create a `<REPO-NAME>` in your CodeCommit console and note down the <CodeCommit Git Clone URL>
 * In the current project root add the <CodeCommit Git Clone URL> as one of the remote destinations (Run the below commands)
 
 ```bash
