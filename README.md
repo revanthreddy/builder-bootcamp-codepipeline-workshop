@@ -26,7 +26,7 @@ $ git push codecommit master
 
 The setup stack creates necessary IAM roles used by Cloudformation, CodeBuild Project and roles, S3 buckets used by Codepipeline during pipeline transitions
 
-Run the below command to create a setup stack at the project root level
+Run the below command to create a setup stack name `workshop-setup` at the project root level
 ```bash
 $ aws cloudformation create-stack --stack-name workshop-setup --template-body file://setup/setup.yaml --capabilities CAPABILITY_IAM
 ```
@@ -40,7 +40,7 @@ $ aws cloudformation create-stack --stack-name workshop-setup --template-body fi
 | CodeBuildRole | AWS::IAM::Role      |
 
 
-From your cloudformation console, look at the outputs section of workshop-setup and note down the `ArtifactBucket` and `CodeBuildName`
+From your cloudformation console, look at the outputs section of `workshop-setup` and note down the `ArtifactBucket` and `CodeBuildName`
 
 
 ## Start the Codepipeline setup in the AWS console
