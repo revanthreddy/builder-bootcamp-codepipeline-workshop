@@ -82,7 +82,6 @@ Review all the changes and click "Create Pipeline"
 ```
 
 
-
 ## Start pipeline
 
 Now that the pipeline is ready and hooked up, it will start automatically and deploy. The final step of the pipeline is a cloudformation deploy.
@@ -94,9 +93,6 @@ Now that the pipeline is ready and hooked up, it will start automatically and de
 * Add an approval action in the deploy stage and re-release the pipeline from the top (or commit new code in the app/directory)
 
 * Change the 'runorder' of the approval stage and the deploy stage (think [cli](https://docs.aws.amazon.com/cli/latest/reference/codepipeline/update-pipeline.html))
-
-* Edit the deploy stage by modifying "Create or update a stack" to creating two more action stages "Create or Replace a Changeset" and "Execute a change set"
-
 
 ## Cleanup
 
