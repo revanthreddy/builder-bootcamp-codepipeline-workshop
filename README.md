@@ -95,6 +95,7 @@ Now that the pipeline is ready and hooked up, it will start automatically and de
 
 ## Cleanup
 
+
 To delete the sample application and the bucket that you created, use the AWS CLI.
 
 * Delete the `nashville-app-stack` first from the cloudformation console
