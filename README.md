@@ -68,7 +68,7 @@ Project Name - workshop-build (created as part of the stack)
 ```
 Deploy Provider - AWS Cloudformation
 Action mode - Create or update a stack
-Stack name - nashville-app-stack
+Stack name - app-stack
 Template section 
     - Artifact Name - BuildArtifact
     - File name - app/package.yml
@@ -85,7 +85,7 @@ Review all the changes and click "Create Pipeline"
 
 Now that the pipeline is ready and hooked up, it will start automatically and deploy. The final step of the pipeline is a cloudformation deploy.
 
-* Open the cloudformation console and look at the outputs section of the "nashville-app-stack". The URL points to the API Gateway endpoint which is implemented by a lambda
+* Open the cloudformation console and look at the outputs section of the "app-stack". The URL points to the API Gateway endpoint which is implemented by a lambda
 
 ## Challenges
 
@@ -98,7 +98,7 @@ Now that the pipeline is ready and hooked up, it will start automatically and de
 
 To delete the sample application and the bucket that you created, use the AWS CLI.
 
-* Delete the `nashville-app-stack` first from the cloudformation console
+* Delete the `app-stack` first from the cloudformation console
 
 * Empty the `ArtifactBucket` manually
 
