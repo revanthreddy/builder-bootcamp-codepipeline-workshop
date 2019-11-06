@@ -85,7 +85,7 @@ Review all the changes and click "Create Pipeline"
 
 Now that the pipeline is ready and hooked up, it will start automatically and deploy. The final step of the pipeline is a cloudformation deploy.
 
-* Open the cloudformation console and look at the outputs section of the "app-stack". The URL points to the API Gateway endpoint which is implemented by a lambda
+* Open the cloudformation console and look at the outputs section of the `app-stack`. The URL points to the API Gateway endpoint which is implemented by a lambda
 
 ## Challenges
 
