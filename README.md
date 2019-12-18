@@ -93,7 +93,7 @@ Now that the pipeline is ready and hooked up, it will start automatically and de
 
 * Change the 'runorder' of the approval stage and the deploy stage (think [cli](https://docs.aws.amazon.com/cli/latest/reference/codepipeline/update-pipeline.html))
 
-## Cleanup
+## CLEANUP ****** IMPORTANT ******
 
 
 To delete the sample application and the bucket that you created, use the AWS CLI.
