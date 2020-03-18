@@ -4,7 +4,7 @@ This project contains source code and supporting files to do a workshop on Codep
 The application uses several AWS resources, including Lambda functions and an API Gateway API. These resources are defined in the `template.yml` file in this project. You can update the template to add AWS resources through the same deployment process that updates your application code.
 
 ## Step.1 `CLONE THIS REPO`
-<br/>
+
 
 ## Step.2 Prerequisites 
 
@@ -12,7 +12,7 @@ The application uses several AWS resources, including Lambda functions and an AP
 * AWS CLI (with default profile has Admin access to the AWS account)
 * IDE (Like Pycharm, VS Code or which ever floats your boat)
 
-<br />
+
 
 ## Step.3 Setup CodeCommit repo in your Isengard account with sample code
 
