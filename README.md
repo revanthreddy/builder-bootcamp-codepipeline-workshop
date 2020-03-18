@@ -3,25 +3,26 @@
 This project contains source code and supporting files to do a workshop on Codepipeline.
 The application uses several AWS resources, including Lambda functions and an API Gateway API. These resources are defined in the `template.yml` file in this project. You can update the template to add AWS resources through the same deployment process that updates your application code.
 
-## Step.1 `Clone This Repo` 
+## Step.1 `CLONE THIS REPO`
+
 
 ## Step.2 Prerequisites 
 
 * Make sure your git credentials for codecommit (on your Isengard) are set (HTTPS/SSH) and ready to go
 * AWS CLI (with default profile has Admin access to the AWS account)
-* IDE (Like Pycharm, VS Code)
+* IDE (Like Pycharm, VS Code or which ever floats your boat)
 
-## Step.3 Setup CodeCommit with sample code
+## Step.3 Setup CodeCommit repo in your Isengard account with sample code
 
 * Create a `<REPO-NAME>` in your CodeCommit console and note down the <CodeCommit Git Clone URL>
 * In the current project root add the <CodeCommit Git Clone URL> as one of the remote destinations (Run the below commands)
 
 ```bash
-$ git remote add codecommit <CodeCommit Git Clone URL>
+$ git remote add codecommit-origin <CodeCommit Git Clone URL>
 $ git add .
 $ git commit -a -m "initial commit"
 $ git checkout -b master
-$ git push codecommit master
+$ git push codecommit-origin master
 ```
 ## Step.4 Run the required setup stack
 
@@ -41,7 +42,7 @@ $ aws cloudformation create-stack --stack-name workshop-setup --template-body fi
 | CodeBuildRole | AWS::IAM::Role      |
 
 
-From your cloudformation console, look at the outputs section of `workshop-setup` and note down the `ArtifactBucket` and `CodeBuildName`
+From your cloudformation console, look at the outputs section of `workshop-setup` and note down the `ArtifactBucket` and `CodeBuildName`. `ArtifactBucket` is used by codebuild to save artifacts in this case.
 
 
 ## Step.5 Start the Codepipeline setup in the AWS console
@@ -69,7 +70,7 @@ Project Name - workshop-build (created as part of the stack)
 ```
 Deploy Provider - AWS Cloudformation
 Action mode - Create or update a stack
-Stack name - app-stack
+Stack name - <your-own-app-name>
 Template section 
     - Artifact Name - BuildArtifact
     - File name - app/package.yml
@@ -86,7 +87,7 @@ Review all the changes and click "Create Pipeline"
 
 Now that the pipeline is ready and hooked up, it will start automatically and deploy. The final step of the pipeline is a cloudformation deploy.
 
-* Open the cloudformation console and look at the outputs section of the `app-stack`. The URL points to the API Gateway endpoint which is implemented by a lambda
+* Open the cloudformation console and look at the outputs section of the `<your-own-app-name>`. The URL points to the API Gateway endpoint which is implemented by a lambda
 
 ## Step.7 Challenges
 
@@ -99,7 +100,7 @@ Now that the pipeline is ready and hooked up, it will start automatically and de
 
 To delete the sample application and the bucket that you created, use the AWS CLI.
 
-* Delete the `app-stack` first from the cloudformation console
+* Delete the `<your-own-app-name>` first from the cloudformation console
 
 * Empty the `ArtifactBucket` manually
 
