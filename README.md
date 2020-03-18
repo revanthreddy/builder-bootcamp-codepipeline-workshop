@@ -3,9 +3,9 @@
 This project contains source code and supporting files to do a workshop on Codepipeline.
 The application uses several AWS resources, including Lambda functions and an API Gateway API. These resources are defined in the `template.yml` file in this project. You can update the template to add AWS resources through the same deployment process that updates your application code.
 
-## Step.1 CLONE THIS REPO
+## Step.1 CLONE THIS REPO <br />
 
-## Step.2 Prerequisites
+## Step.2 Prerequisites <br />
 
 * Make sure your git credentials for codecommit (on your Isengard) are set (HTTPS/SSH) and ready to go
 * AWS CLI (with default profile has Admin access to the AWS account)
